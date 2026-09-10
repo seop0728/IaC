@@ -1,0 +1,31 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: Set up time synchronization
+      tags: ntp
+      block:
+        - name: Install chrony
+          apt:
+            name: chrony
+            state: present
+
+        - name: Configure chrony
+          template:
+            src: chrony.conf.j2
+            dest: /etc/chrony/chrony.conf
+          notify:
+            - Restart chrony
+
+        - name: Enable and run chrony
+          service:
+            name: chrony
+            state: started
+            enabled: true
+
+  handlers:
+    - name: Restart chrony
+      service:
+        name: chrony
+        state: restarted

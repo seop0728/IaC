@@ -1,0 +1,13 @@
+---
+- hosts: nodes
+  gather_facts: false
+
+  tasks:
+    - name: dict list loop
+      debug:
+        msg: "name = {{ item.name }} groups = {{ item.groups }}"
+      loop:
+        - { name: 'testuser1', groups: 'sudo' }
+        - { name: 'testuser2', groups: 'users' }
+
+

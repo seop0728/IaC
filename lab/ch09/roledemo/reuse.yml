@@ -1,0 +1,27 @@
+---
+- name: 역활 재사용
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: 역활 실행 전 메세지
+      debug:
+        msg: "실행 전 입니다"
+
+    - name: 동적으로 역활 포함
+      include_role:
+        name: foo_app_instance
+      vars:
+        dir: '/opt/dynamic'
+        app_port: 6000
+
+    - name: 정적으로 역할 가져오기
+      import_role:
+        name: foo_app_instance
+      vars:
+        dir: '/opt/static'
+        app_port: 7000
+
+    - name: 역할 실행 후 메세지
+      debug:
+        msg: "역할 끝났습니다"

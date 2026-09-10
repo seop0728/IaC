@@ -1,0 +1,6 @@
+---
+- name: 파일 이름이 변수인 경우(import_tasks)
+  hosts: localhost
+  tasks:
+    - name: 배포판 이름으로 작업 파일 포함
+      import_tasks: "{{ ansible_facts['distribution'] }}.yml"

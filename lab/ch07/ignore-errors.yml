@@ -1,0 +1,12 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: 명령 실패를 무시
+      command: /bin/false
+      ignore_errors: true
+
+    - name: 여기까지 온다
+      debug:
+        msg: "이 메시지는 출력된다"

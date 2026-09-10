@@ -1,0 +1,22 @@
+---
+- name: tree Package install
+  hosts: nodes
+  #become: true
+
+  tasks:
+    - name: tree install
+      apt:
+        name: tree
+        state: present
+        update_cache: true
+
+    - name: marker file
+      copy:
+        dest: /etc/lab-marker.txt
+        content: "by ansible v2"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: command module
+      command: touch /tmp/test.txt

@@ -1,0 +1,35 @@
+---
+- name: Variable types demo
+  hosts: ansible-node2
+  gather_facts: false
+  vars:
+    remote_install_path: /opt/my_app_config
+    region:
+      - northeast
+      - southeast
+      - midwest
+    foo:
+      field1: one
+      field2: two
+
+  tasks:
+    - name: Show a basic variable
+      debug:
+        msg: "{{ remote_install_path }}/foo.cfg"
+
+    - name: Show a list variable
+      debug:
+        msg: "{{ region[0] }}"
+
+    - name: Show a dictionary variable
+      debug:
+        msg: "{{ foo['field1'] }} / {{ foo.field2 }}"
+
+    - name: Run a shell command and register its output
+      command: id -un
+      register: id_result
+      changed_when: false
+
+    - name: Show the registered variable
+      debug:
+        var: id_result

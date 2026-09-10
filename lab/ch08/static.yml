@@ -1,0 +1,15 @@
+---
+- name: import_tasks (정적)
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: task1
+      debug:
+        msg: task1
+
+    - name: Include task list in play
+      import_tasks: stuff.yml
+
+    - name: task10
+      debug:
+        msg: task10

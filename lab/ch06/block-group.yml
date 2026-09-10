@@ -1,0 +1,22 @@
+---
+- hosts: ansible-node1
+
+  tasks:
+    - name: Block
+      block:
+        - name: Create a marker file
+          file:
+            path: /tmp/ch06-block-demo
+            state: touch
+            mode: '0644'
+
+        - name: Show the marker
+          command: ls -l /tmp/ch06-block-demo
+          register: marker
+          changed_when: false
+
+        - name: Print marker
+          debug:
+            msg: "{{ marker.stdout }}"
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      become: true

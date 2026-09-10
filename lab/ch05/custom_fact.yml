@@ -1,0 +1,20 @@
+---
+- name: custom fact
+  hosts: nodes
+
+  tasks:
+    - name: facts.d dir
+      file:
+        path: /etc/ansible/facts.d
+        state: directory
+        mode: '0755'
+
+    - name: fact file
+      copy:
+        dest: /etc/ansible/facts.d/preferences.fact
+        content: |
+          [general]
+          foo = 1
+          bar = 2
+        mode: '0644'
+      

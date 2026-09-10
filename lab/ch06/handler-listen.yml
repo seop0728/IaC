@@ -1,0 +1,22 @@
+---
+- hosts: ansible-node1
+  
+  tasks:
+    - name: Template configuration file (listen 방식)
+      copy:
+        dest: /tmp/ch06-bar.conf
+        content: "listen-demo\n"
+        mode: '0644'
+      notify:
+        - Restart web services
+
+  handlers:
+    - name: Restart nginx via listen
+      debug:
+        msg: "nginx restarted (listen)"
+      listen: Restart web services
+
+    - name: Restart php-fpm via listen
+      debug:
+        msg: "php-fpm restarted (listen)"
+      listen: Restart web services

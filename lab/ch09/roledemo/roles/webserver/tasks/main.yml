@@ -1,0 +1,7 @@
+- name: for RHEL
+  import_tasks: redhat.yml
+  when: ansible_facts['os_family'] | lower == 'redhat'
+
+- name: for Debian
+  import_tasks: debian.yml
+  when: ansible_facts['os_family'] | lower == 'debian'

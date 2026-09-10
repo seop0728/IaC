@@ -1,0 +1,21 @@
+---
+- name: linear
+  hosts: nodes
+  gather_facts: false
+  tasks:
+    - name: node1 만 3초 지연
+      command: sleep 3
+      when: inventory_hostname == 'ansible-node1'
+    - name: 두번째  작업
+      command: hostname
+
+- name: free
+  hosts: nodes
+  strategy: free
+  gather_facts: false
+  tasks:
+    - name: node1 만 3초 지연
+      command: sleep 3
+      when: inventory_hostname == 'ansible-node1'
+    - name: 두번째 작업
+      command: hostname 

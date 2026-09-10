@@ -1,0 +1,10 @@
+---
+- name: async poll demo
+  hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: poll > 0 - 완료까지 대기 (15초 작업, 최대 45초, 5초 간격 폴링)
+      command: /bin/sleep 15
+      async: 45
+      poll: 5

@@ -1,0 +1,23 @@
+---
+- hosts: ansible-node1
+
+  tasks:
+    - name: 다중 조건 and / or
+      debug:
+        msg: "지원 대상 Ubuntu LTS 입니다"
+      when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22") or
+            (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "24")
+
+    - name: 목록형 AND 조건
+      debug:
+        msg: "Ubuntu 24 전용 작업"
+      when:
+        - ansible_facts['distribution'] == "Ubuntu"
+        - ansible_facts['distribution_major_version'] == "24"
+
+    - name: RHEL 9 조건
+      debug:
+        msg: "RHEL 9 전용 작업"
+      when:
+        - ansible_facts['distribution'] == "RedHat"
+        - ansible_facts['distribution_major_version'] == "9"

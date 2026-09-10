@@ -1,0 +1,12 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+  
+  tasks:
+    - name: local action
+      local_action: command hostname
+      register: r
+
+    - name: 확인
+      debug:
+        msg: "실행된 곳 = {{ r.stdout }}"

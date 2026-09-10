@@ -1,0 +1,10 @@
+---
+- hosts: broken
+  ignore_unreachable: true
+  tasks:
+    - name: 연결이 필요한 작업
+      command: hostname
+
+    - name: 여기까지 오지 못함
+      debug:
+        msg: "출력 X"

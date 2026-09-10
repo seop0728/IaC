@@ -1,0 +1,12 @@
+---
+- name: 테스트 하나만 써보기
+  hosts: ansible-node1
+  gather_facts: false
+  vars:
+    fruit_basket: "사과,바나나,포도"
+
+  tasks:
+    - name: 바나나 들어 있나요?
+      debug:
+        msg: "바나나 있음"
+      when: fruit_basket is search("바나나")

@@ -1,0 +1,18 @@
+---
+- name: 팩트 수집 위임 (delegate_facts)
+  hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: Gather facts from other nodes
+      setup:
+      delegate_to: "{{ item }}"
+      delegate_facts: true
+      loop: "{{ groups['nodes'] }}"
+
+    - name: 위임 수집한 팩트를 hostvars에서 조회
+      debug:
+        msg: >-
+          {{ item }} 의 기본 IPv4 =
+          {{ hostvars[item]['ansible_facts']['enp0s8']['ipv4']['address'] }}
+      loop: "{{ groups['nodes'] }}"

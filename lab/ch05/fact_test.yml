@@ -1,0 +1,24 @@
+- name: Facts test
+  hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    # 1. 팩트 수집 전 시도 -> 실패하지만 무시하고 계속 진행
+    - name: Try using
+      debug:
+        msg: "hostname = {{ ansible_facts['hostname'] }}"
+      ignore_errors: true
+
+    # 2. 필요한 팩트 변수 수집
+    - name: Gather Facts
+      setup:
+        filter: "ansible_hostname"
+
+    # 3. 팩트 수집 후 재시도 -> 성공
+    - name: Try using AFTER
+      debug:
+        msg: "hostname = {{ ansible_facts['hostname'] }}"
+
+
+
+

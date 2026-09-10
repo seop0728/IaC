@@ -1,0 +1,7 @@
+- name: Restart apache
+  debug:
+    msg: "apache restarted"
+
+- name: Restart mysql
+  debug:
+    msg: "mysql restarted"

@@ -1,0 +1,20 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: 블록 안에서 알림 보내고 실패하기
+      block:
+        - name: 설정을 바꿨다고 치기
+          debug:
+            msg: '설정 파일을 바꿨습니다'
+          changed_when: true
+          notify: Restart demo service
+
+        - name: 일부러 실패시키기
+          command: /bin/false
+
+  handlers:
+    - name: Restart demo service
+      debug:
+        msg: '핸들러가 실행됐습니다'

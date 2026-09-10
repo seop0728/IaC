@@ -1,0 +1,13 @@
+---
+- name: boolean test
+  hosts: nodes
+  vars:
+    create_key: yes
+    needs_agent: no
+    knows_oop: True
+    likes_emacs: TRUE
+    uses_cvs: false
+  tasks:
+    - name: print vars
+      debug:
+        msg: "{{ create_key }} {{ needs_agent }} {{ knows_oop }} {{ likes_emacs }} {{ uses_cvs }}"

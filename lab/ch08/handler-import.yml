@@ -1,0 +1,19 @@
+---
+- name: trigger an imported (static) handler
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Notify apache
+      command: "true"
+      changed_when: true
+      notify: Restart apache
+
+    - name: Notify mysql
+      command: "true"
+      changed_when: true
+      notify: Restart mysql
+
+  handlers:
+    - name: Restart services
+      import_tasks: restarts.yml

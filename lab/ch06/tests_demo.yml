@@ -1,0 +1,14 @@
+- name: test demo
+  hosts: ansible-node1
+  vars:
+    url: "http://example.com/users/foo/resources/bar"
+  tasks:
+    - name: match
+      debug:
+        msg: "matched 1"
+      when: url is match("http://example.com/users/")
+
+    - name: search
+      debug:
+        msg: "search 2"
+      when: url is search("/users/.*/resources/")

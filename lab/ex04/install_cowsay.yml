@@ -1,0 +1,20 @@
+---
+- name: Install cowsay on managed nodes
+  hosts: nodes
+  become: true
+ 
+  tasks:
+    - name: Ensure cowsay is installed
+      ansible.builtin.apt:
+        name: cowsay
+        state: present
+        update_cache: true
+ 
+    - name: Deploy a marker file
+      ansible.builtin.copy:
+        dest: /etc/ex04-marker.txt
+        content: "managed by ansible\n"
+        owner: root
+        group: root
+        mode: '0644'
+

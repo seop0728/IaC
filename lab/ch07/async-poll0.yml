@@ -1,0 +1,26 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: poll = 0 - 실행만 시키고 기다리지 않음
+      command: /bin/sleep 20
+      async: 120
+      poll: 0
+      register: sleeper
+
+    - name: 비동기 작업 사이에 다른 작업을 먼저 실행
+      debug:
+        msg: "비동기 작업이 도는 동안 이 작업이 먼저 끝난다 (job_id={{ sleeper.ansible_job_id }})"
+
+    - name: async_status 로 비동기 작업 완료를 기다림
+      async_status:
+        jid: "{{ sleeper.ansible_job_id }}"
+      register: job_result
+      until: job_result.finished
+      retries: 30
+      delay: 5
+
+    - name: 최종 결과
+      debug:
+        msg: "finished={{ job_result.finished }} rc={{ job_result.rc }} delta={{ job_result.delta }}"

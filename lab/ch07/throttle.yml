@@ -1,0 +1,19 @@
+---
+- hosts: nodes
+  gather_facts: false
+
+  tasks:
+    - name: throttle 없음 - 두 호스트 동시 실행
+      shell: "date +%H:%M:%S; sleep 3"
+      register: a
+    - name: 시작 시각 (throttle 없음)
+      debug:
+        msg: "{{ inventory_hostname }} 시작={{ a.stdout }}"
+
+    - name: throttle 1 - 한 번에 한 호스트씩
+      shell: "date +%H:%M:%S; sleep 3"
+      throttle: 1
+      register: b
+    - name: 시작 시각 (throttle 1)
+      debug:
+        msg: "{{ inventory_hostname }} 시작={{ b.stdout }}"

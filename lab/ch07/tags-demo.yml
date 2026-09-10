@@ -1,0 +1,31 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: Install the servers
+      ansible.builtin.debug:
+        msg: "install packages"
+      tags:
+        - packages
+        - webservers
+
+    - name: Configure the service
+      ansible.builtin.debug:
+        msg: "configure service"
+      tags:
+        - configuration
+
+    - name: Always runs
+      ansible.builtin.debug:
+        msg: "always tag task"
+      tags: always
+
+    - name: Never runs unless requested
+      ansible.builtin.debug:
+        msg: "never tag task"
+      tags: never
+
+    - name: Untagged task
+      ansible.builtin.debug:
+        msg: "no tags here"

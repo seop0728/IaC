@@ -1,0 +1,15 @@
+---
+- name: Fact variable demo using ansible_facts
+  hosts: ansible-node1
+
+  tasks:
+    - name: Reference common facts
+      debug:
+        msg:
+          - "hostname       = {{ ansible_facts['hostname'] }}"
+          - "memtotal_mb    = {{ ansible_facts['memtotal_mb'] }}"
+          - "all_ipv4       = {{ ansible_facts['all_ipv4_addresses'] }}"
+          - "interfaces     = {{ ansible_facts['interfaces'] }}"
+          - "enp0s8 address = {{ ansible_facts['enp0s8']['ipv4']['address'] }}"
+          - "default_ipv4   = {{ ansible_facts['default_ipv4']['address'] }}"
+          - "distribution   = {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"

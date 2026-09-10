@@ -1,0 +1,17 @@
+---
+- hosts: nodes
+  gather_facts: false
+
+  tasks:
+    - name: A 축약형
+      local_action: command hostname
+      register: a
+
+    - name: B 
+      command: hostname
+      delegate_to: localhost
+      register: b
+
+    - name: 결과
+      debug:
+        msg: "host = {{ inventory_hostname }} , A={{ a.stdout }} , B={{ b.stdout }}"

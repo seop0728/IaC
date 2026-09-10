@@ -1,0 +1,23 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: 출력에 특정 문자열이 있으면 실패로 간주
+      command: echo "everything is OK"
+      register: r1
+      failed_when: "'FAILED' in r1.stdout"
+
+    - name: r1 결과
+      debug:
+        msg: "rc={{ r1.rc }} failed={{ r1.failed }} stdout={{ r1.stdout }}"
+
+    - name: 반환 코드 기반 실패 재정의 (rc=0 이면 실패로 간주)
+      command: echo same
+      register: r2
+      failed_when: r2.rc == 0 or r2.rc >= 2
+      ignore_errors: true
+
+    - name: r2 결과
+      debug:
+        msg: "rc={{ r2.rc }} failed={{ r2.failed }}"

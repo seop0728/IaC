@@ -1,0 +1,13 @@
+---
+- hosts: nodes
+  gather_facts: false
+  vars:
+    user_list: [ 'testuser1', 'testuser2' ]
+
+  tasks:
+    - name: user add
+      debug:
+        msg: " item = {{ item }}"
+      loop:
+        "{{ user_list }}"
+        

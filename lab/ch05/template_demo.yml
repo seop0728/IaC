@@ -1,0 +1,13 @@
+---
+- name: Gather facts
+  hosts: all
+
+- name: Build hosts file
+  hosts: ansible-node1
+
+  tasks:
+    - name: Render Template
+      template:
+        src: templates/hosts.j2
+        dest: /tmp/hosts.generated
+        mode: '0644'

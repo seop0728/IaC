@@ -1,0 +1,12 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+  vars:
+    colors: [ 'red', 'blue' ]
+    sizes: [ 'S', 'M' ]
+
+  tasks:
+    - name: prduct
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ colors | product(sizes) }}"

@@ -1,0 +1,14 @@
+---
+- name: trigger an included (dynamic)
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Touch marker file
+      command: "true"
+      changed_when: true
+      notify: Restart services
+
+  handlers:
+    - name: Restart services
+      include_tasks: restarts.yml

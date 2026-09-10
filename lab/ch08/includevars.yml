@@ -1,0 +1,16 @@
+---
+- name: include_vars 모듈
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: 파일 전체를 최상위 변수로 가져오기
+      include_vars: external_vars.yml
+
+    - name: db_vars.yml 을 stuff 변수 아래로 가져오기
+      include_vars:
+        file: db_vars.yml
+        name: stuff
+
+    - name: 결과 확인 
+      debug:
+        msg: "app_port={{ app_port }} // stuff = {{ stuff }}"

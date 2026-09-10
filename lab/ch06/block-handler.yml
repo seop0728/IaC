@@ -1,0 +1,23 @@
+---
+- hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: Attempt and graceful roll back demo
+      block:
+        - name: Print a message
+          debug:
+            msg: 'I execute normally'
+          changed_when: true
+          notify: Run me even after an error
+
+        - name: Force a failure
+          command: /bin/false
+      rescue:
+        - name: Make sure all handlers run
+          meta: flush_handlers
+
+  handlers:
+    - name: Run me even after an error
+      debug:
+        msg: 'This handler runs even on error'

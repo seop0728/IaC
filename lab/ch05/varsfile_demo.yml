@@ -1,0 +1,17 @@
+---
+- name: var ans extra
+  hosts: ansible-node1
+  gather_facts: false
+  vars:
+    color: blue
+  vars_files:
+    - vars/external_vars.yml
+
+  tasks:
+    - name: Show
+      debug:
+        msg: "Color = {{ color }} / somevar = {{ somevar }} / password = {{ password }}"
+
+    - name: show version
+      debug:
+        msg: "version = {{ version | default('(unknown)') }}"

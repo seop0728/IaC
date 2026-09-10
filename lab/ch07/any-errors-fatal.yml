@@ -1,0 +1,13 @@
+---
+- hosts: nodes
+  any_errors_fatal: true
+  gather_facts: false
+
+  tasks:
+    - name: 노드1에서만 실패하는 작업
+      command: /bin/false
+      when: inventory_hostname == 'ansible-node1'
+
+    - name: node2번 여기까지 못옴
+      debug:
+        msg: "출력 X"

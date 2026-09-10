@@ -1,0 +1,6 @@
+---
+- name: 역할 의존성
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - webservers

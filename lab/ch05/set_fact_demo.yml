@@ -1,0 +1,15 @@
+---
+- name: set_fact demo
+  hosts: ansible-node1
+  gather_facts: true
+
+  tasks:
+    - name: Define a fact at runtime
+      set_fact:
+        one_fact: true
+        other_fact: false
+        app_root: "/srv/{{ ansible_facts['hostname'] }}"
+
+    - name: Show the facts defined by set_fact
+      debug:
+        msg: "one_fact={{ one_fact }} other_fact={{ other_fact }} app_root={{ app_root }}"

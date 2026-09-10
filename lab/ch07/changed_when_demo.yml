@@ -1,0 +1,23 @@
+---
+- name: changed_when demo
+  hosts: ansible-node1
+  gather_facts: false
+
+  tasks:
+    - name: 반환 코드가 2가 아니면 changed 로 보고
+      command: echo a
+      register: r4
+      changed_when: "r4.rc != 2"
+
+    - name: r4 결과
+      debug:
+        msg: "rc={{ r4.rc }} changed={{ r4.changed }}"
+
+    - name: 항상 changed 아님으로 보고
+      command: echo b
+      register: r3
+      changed_when: false
+
+    - name: r3 결과
+      debug:
+        msg: "changed={{ r3.changed }}"

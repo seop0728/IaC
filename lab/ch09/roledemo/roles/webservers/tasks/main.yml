@@ -1,0 +1,3 @@
+- name: webserver 역할
+  debug:
+    msg: "webserver 역할 실행"

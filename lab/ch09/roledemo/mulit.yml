@@ -1,0 +1,8 @@
+---
+- name: 같은 역할을 여러번 지정
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - common
+    - foo_app_instance
+    - common

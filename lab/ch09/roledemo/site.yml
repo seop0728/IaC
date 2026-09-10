@@ -1,0 +1,6 @@
+---
+- name: 배포판별 웹 서버 설치
+  hosts: ansible-node1
+  become: true
+  roles:
+    - webserver

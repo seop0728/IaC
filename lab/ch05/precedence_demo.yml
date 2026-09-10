@@ -1,0 +1,23 @@
+---
+- name: group_vars vs host_vars
+  hosts: nodes
+  gather_facts: false
+
+  tasks:
+    - name: Show which definition won
+      debug:
+        msg: "{{ inventory_hostname }} -> who = {{ who }}"
+
+- name: Precedence vars vs vars_files
+  hosts: ansible-node1
+  gather_facts: false
+  vars:
+    greeting: from vars keyword
+    
+  vars_files:
+    - vars/precedence_vars.yml
+
+  tasks:
+    - name: Show the greeting variable
+      debug:
+        var: greeting

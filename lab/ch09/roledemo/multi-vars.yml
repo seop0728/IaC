@@ -1,0 +1,15 @@
+---
+- name: 같은 역할에 다른 변수 전달
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: foo_app_instance
+      vars:
+        dir: '/opt/a'
+        app_port: 5000
+      tags: typeA
+    - role: foo_app_instance
+      vars:
+        dir: '/opt/b'
+        app_port: 5001
+      tags: typeB

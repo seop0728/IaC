@@ -1,0 +1,20 @@
+---
+- hosts: ansible-node1
+  tasks:
+    - name: config file
+      copy:
+        dest: /tmp/ch06-foo.conf
+        content: "port=8080\n"
+        mode: '0644'
+      notify:
+        - Restart memcached
+        - Restart apache
+
+  handlers:
+    - name: Restart memcached
+      debug:
+        msg: "call memcached"
+
+    - name: Restart apache
+      debug:
+        msg: "call apache"

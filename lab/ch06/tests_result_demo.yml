@@ -1,0 +1,29 @@
+---
+- name: Result tests demo
+  hosts: ansible-node1
+
+  tasks:
+    - name: test failed
+      shell: /usr/bin/foo
+      register: result
+      ignore_errors: true
+
+    - name: it failed
+      debug:
+        msg: "it failed"
+      when: result is failed
+
+    - name: it changed
+      debug:
+        msg: "it changed"
+      when: result is changed
+
+    - name: it succeeded
+      debug:
+        msg: "it succeeded"
+      when: result is succeeded
+
+    - name: it was skipped
+      debug:
+        msg: "it was skipped"
+      when: result is skipped

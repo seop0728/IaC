@@ -1,0 +1,21 @@
+- name: vars_prompt demo
+  hosts: ansible-node1
+  gather_facts: false
+  
+  vars_prompt:
+    - name: username
+      prompt: Enter username
+      private: false
+      default: labuser
+      
+    - name: hashed_password
+      prompt: Enter password
+      private: true
+      encrypt: sha512_crypt
+      confirm: true
+      salt_size: 16
+
+  tasks:
+    - name: Show the values that were entered
+      debug:
+        msg: "username={{ username }} hash={{ hashed_password }}"

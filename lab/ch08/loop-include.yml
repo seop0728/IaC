@@ -1,0 +1,11 @@
+---
+- name: include_tasks 를 반복문과 함께 사용
+  hosts: localhost
+  gather_facts: false
+  
+  tasks:
+    - name: 사용자마다 작업 파일 포함
+      include_tasks: greet.yml
+      loop:
+        - alice
+        - bob

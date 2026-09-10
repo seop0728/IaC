@@ -1,0 +1,25 @@
+---
+- name: 위임
+  hosts: nodes
+  tasks:
+    - name: 위임 없음 - 각 관리 노드에서 실행
+      command: hostname
+      register: nodelegate
+
+    - name: 제어 노드에서 실행
+      command: hostname
+      delegate_to: ansible-ctrl
+      register: toctrl
+
+    - name: 노드2에서 실행
+      command: hostname
+      delegate_to: ansible-node2
+      register: tonode2
+
+    - name: 실행 비교
+      debug:
+        msg: >-
+          inventory_hostname = {{ inventory_hostname }} |
+          위임없음 = {{ nodelegate.stdout }} |
+          ctrl 위임 = {{ toctrl.stdout }} |
+          node2 위임= {{ tonode2.stdout }} 

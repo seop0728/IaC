@@ -1,0 +1,7 @@
+---
+- name: simple
+  hosts: localhost
+  tasks:
+    - name: public ip
+      debug:
+        msg: "내 공인 IP = {{ lookup('url','https://api.ipify.org') }}"

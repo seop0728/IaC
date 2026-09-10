@@ -1,0 +1,5 @@
+- name: common 역활 작업
+  debug:
+    msg: "common 역활 실행 - {{ some_parameter | default('미지정') }}"
+  changed_when: true
+  notify: 역할 핸들러
