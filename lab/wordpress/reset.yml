@@ -1,0 +1,36 @@
+---
+- name: 워드프레스 실습 환경 초기화
+  hosts: all
+  become: true
+
+  tasks:
+    - name: apache2/mysql/php 패키지 완전 제거
+      ansible.builtin.apt:
+        name:
+          - apache2
+          - apache2-bin
+          - apache2-data
+          - apache2-utils
+          - mysql-server
+          - mysql-client
+          - mysql-common
+          - php
+          - php-mysql
+          - libapache2-mod-php
+          - python3-pymysql
+        state: absent
+        purge: true
+        autoremove: true
+      when: "'nodes' in group_names"
+
+    - name: 남은 설정·데이터 디렉터리 통째로 삭제
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/apache2
+        - /var/www/html
+        - /var/lib/mysql
+        - /etc/mysql
+        - /tmp/wordpress.tar.gz
+      when: "'nodes' in group_names"
